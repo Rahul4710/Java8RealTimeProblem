@@ -1,5 +1,6 @@
 package com.thenext.app;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +30,26 @@ public class EmployeeRunner {
 						Collectors.averagingInt(Employee::getAge)));
 		
 		System.out.println(avgAgeOfMaleAndFemaleEmployees);
+		
+		
+		//Get the details of highest paid employee in the organization
+		//fist way
+		Employee employee = employess.stream()
+		         .sorted(Comparator.comparing(Employee::getSalary).reversed())
+		         .findFirst()
+		         .map(emp->emp)
+		         .get();
+		System.out.println(employee);
+		
+		//Get the details of lowest paid employee in the organization
+		
+		Employee lowestPaidEmployee = employess.stream()
+		        // .collect(Collectors.maxBy(Comparator.comparing(Employee::getSalary)))
+				.collect(Collectors.minBy(Comparator.comparing(Employee::getSalary)))
+		        .get();
+		System.out.println(lowestPaidEmployee);
+		
+		         
 		
 
 	}
