@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 public class EmployeeRunner {
 	public static void main(String[] args) {
 
-		
-   
 // how many male and female  employees are there in organizations.		
 		List<Employee> employess = EmployeeDB.getEmployess();
 
@@ -16,25 +14,22 @@ public class EmployeeRunner {
 				.collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
 
 		System.out.println(noOfMaleAndFemaleEmployee);
+
+		// print all the name of department
+
+		List<String> nameOfDepartment = employess.stream()
+				// .map(emp->emp.getDepartment())
+				.map(Employee::getDepartment).distinct().collect(Collectors.toList());
+		System.out.println(nameOfDepartment);
+
+		// What is the average age of male and female employees?
+
+		Map<String, Double> avgAgeOfMaleAndFemaleEmployees = employess.stream()
+				.collect(Collectors.groupingBy(Employee::getGender,
+						Collectors.averagingInt(Employee::getAge)));
 		
+		System.out.println(avgAgeOfMaleAndFemaleEmployees);
 		
-	//print all the name of department
-		
-		 List<String> nameOfDepartment = employess.stream()
-		           // .map(emp->emp.getDepartment())
-				    .map(Employee::getDepartment)
-		            .distinct()
-		            .collect(Collectors.toList());
-		            System.out.println(nameOfDepartment);
-		            
-		            
-		            
-	//What is the average age of male and female employees?
-		            
-		           
-		                     
-		                    	 
-		                    
 
 	}
 
