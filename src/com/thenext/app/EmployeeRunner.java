@@ -1,8 +1,10 @@
 package com.thenext.app;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class EmployeeRunner {
@@ -49,7 +51,34 @@ public class EmployeeRunner {
 		        .get();
 		System.out.println(lowestPaidEmployee);
 		
-		         
+		
+		//Get the names of all employees who have joined after 2015
+		 List<String> aftr2k15JoinEmp = employess.stream()
+		         .filter(emp->emp.getYearOfJoining()>2015)
+		         .map(emp->emp.getName())
+		         .collect(Collectors.toList());
+		System.out.println(aftr2k15JoinEmp);
+		
+		
+		//Count the number of employees in each department
+		
+		Map<String,Long> noOfEmployeeInDepart = employess.stream()
+		         .collect(Collectors.groupingBy(Employee::getDepartment,Collectors.counting()));
+		
+		/*
+		 * Map<String, Long> result = noOfEmployeeInDepart.entrySet() .stream()
+		 * .collect(Collectors.toMap(emp->emp.getKey(), emp->emp.getValue()));
+		 */
+		System.out.println(noOfEmployeeInDepart);
+		
+		
+		//What is the average salary of each department
+		
+		Map<String, Double> avgSal = employess.stream()
+		         .collect(Collectors.groupingBy(Employee::getDepartment,Collectors.averagingDouble(Employee::getSalary)));
+		
+		System.out.println(avgSal);
+		
 		
 
 	}
